@@ -1,4 +1,7 @@
 import {UserController} from "./controller/UserController";
+import {LoginController} from "./controller/LoginController";
+import {IndexController} from "./controller/IndexController";
+import {Index} from "typeorm";
 
 export const Routes = [{
     method: "get",
@@ -20,4 +23,21 @@ export const Routes = [{
     route: "/users",
     controller: UserController,
     action: "remove"
-}];
+},{
+    method: "get",
+    route: "/register",
+    controller: LoginController,
+    action: "register"
+}, {
+    method: "get",
+    route: "/login",
+    controller: LoginController,
+    action: "login"
+}, {
+    method: "get",
+    route: "/",
+    controller: IndexController,
+    action: "index"
+}
+
+];

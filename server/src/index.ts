@@ -9,11 +9,12 @@ import * as session from "express-session";
 import {User} from "./entity/User";
 import * as passportLocal from "passport-local";
 import * as passportJWT from "passport-jwt";
+import * as path from "path";
 
 
 let config = require("../config.json");
 let RedisStore = require("connect-redis")(session);
-
+let express_handlebars = require("express-handlebars")({defaultLayout: 'layout'});
 
 createConnection().then(async connection => {
 
@@ -35,7 +36,13 @@ createConnection().then(async connection => {
         });
     });
 
+    //setup views
+    app.set('views', path.join(__dirname, 'views'));
+    app.engine('handlebars', express_handlebars);
+    app.set('view engine', 'handlebars');
 
+    //setup static assets
+    app.use(express.static('public'));
 
     // setup express app
     app.use(session({
@@ -49,6 +56,9 @@ createConnection().then(async connection => {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+
+    // cache static files
+    app.enable('view cache');
 
     // start express server
     app.listen(config.port);
@@ -66,5 +76,14 @@ createConnection().then(async connection => {
     */
 
     console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results");
+
+
+
+    app._router.stack.forEach(function(r){
+        if (r.route && r.route.path){
+            console.log(r.route.path)
+        }
+    })
+
 
 }).catch(error => console.log(error));

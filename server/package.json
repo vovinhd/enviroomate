@@ -1,18 +1,25 @@
 {
-  "name": "new-typeorm-project",
+  "name": "enviroomate-server",
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
-    "ts-node": "3.3.0",
     "@types/node": "^8.0.29",
-    "typescript": "2.5.2"
+    "grunt": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-run": "^0.8.1",
+    "ts-node": "3.3.0",
+    "typescript": "2.5.2",
+    "uglify": "^0.1.5"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.1",
     "connect-redis": "^3.3.3",
     "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
+    "express-validator": "^5.2.0",
     "jsonwebtoken": "^8.2.1",
     "mysql": "^2.14.1",
     "passport": "^0.4.0",

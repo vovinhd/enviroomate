@@ -19,7 +19,7 @@ export class User {
         this.hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync()); //TODO make more async
     }
 
-    public async validatePassword(canditiate: string): Promise<boolean> {
-        return bcrypt.compare(canditiate, this.hash)
+    public async validatePassword(candidate: string): Promise<boolean> {
+        return bcrypt.compare(candidate, this.hash)
     }
 }
