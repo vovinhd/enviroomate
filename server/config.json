@@ -1,0 +1,7 @@
+{
+  "redisStore": {
+    "url": ""
+  },
+  "secret": "haaaands",
+  "port": 3000
+}
