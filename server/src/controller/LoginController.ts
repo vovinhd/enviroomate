@@ -1,6 +1,7 @@
 import {getRepository} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {User} from "../entity/User";
+import * as passport from "passport";
 
 export class LoginController {
 
@@ -11,19 +12,24 @@ export class LoginController {
         return response.render('login', {login_active: "active"});
     }
 
+    async postLogin(request: Request, response: Response, next: NextFunction) {
+        return passport.authenticate('local', { successRedirect: '/',
+            failureRedirect: '/somewhere',
+            failureFlash: false })
+    }
 
     register(request: Request, response: Response, next: NextFunction) {
         return response.render('register', {reg_active: "active"});
     }
 
-    post_register(request: Request, response: Response, next: NextFunction) {
+    postRegister(request: Request, response: Response, next: NextFunction) {
 
         //validate
         request.checkBody('username', 'Email is required').notEmpty();
         request.checkBody('username', 'Email is not valid').isEmail();
         request.checkBody('screenname', 'Username is required').notEmpty();
         request.checkBody('password', 'Password is required').notEmpty();
-        request.checkBody('confirmpassword', 'Passwords do not match').equals(request.body.password);
+        request.checkBody('confirm_password', 'Passwords do not match').equals(request.body.password);
 
         let err = request.validationErrors();
         if (err) {
@@ -34,9 +40,20 @@ export class LoginController {
         let username = request.body.username;
         let screename = request.body.screenname;
         let password = request.body.password;
-        let confirmPassword = request.body.confirmpassword;
+        let confirmPassword = request.body.confirm_password;
 
-
+        this.userRepository.findOne({userName: username }).then((user) =>{
+            if (user == null) {
+                let newUser = new User();
+                newUser.userName = username;
+                newUser.screenName = screename;
+                newUser.password = password;
+                request.flash('success_msg', 'You are registered and can now login');
+                return response.render('login', {login_active: "active"});
+            } else {
+                return response.render('register', {reg_active: "active", username: username});
+            }
+        })
         return response.render('register', {reg_active: "active"});
     }
 }

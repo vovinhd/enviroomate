@@ -32,15 +32,26 @@ module.exports = function(grunt) {
                     'start'
                 ]
             }
+        },
+        watch: {
+            src: {
+                files: '**/**',
+                tasks: ['uglify', 'copy', 'run'],
+                options: {
+                    interrupt: true
+                }
+            }
         }
     });
 
-    // Load the plugin that provides the "uglify" task.
+    // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-run');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('default', ['uglify', 'copy', 'run']);
+    grunt.registerTask('watch', ['uglify', 'copy', 'run', 'watch'])
 
 };

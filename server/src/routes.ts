@@ -29,11 +29,17 @@ export const Routes = [{
     controller: LoginController,
     action: "register"
 }, {
+    method: "post",
+    route: "/register",
+    controller: LoginController,
+    action: "postRegister"
+}, {
     method: "get",
     route: "/login",
     controller: LoginController,
     action: "login"
-}, {
+},
+{
     method: "get",
     route: "/",
     controller: IndexController,

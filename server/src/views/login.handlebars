@@ -1,2 +1,18 @@
 {{!< layout/default}}
 <h1 class="cover-heading">Cover your page.</h1>
+<form method="post" action="/login">
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" placeholder="you@yourmailer.tld" name="username">
+    </div>
+
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="hunter2" name="password">
+    </div>
+
+
+    <button type="submit" class="btn btn-default">Login</button>
+</form>

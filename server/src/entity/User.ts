@@ -11,6 +11,9 @@ export class User {
     userName: string;
 
     @Column()
+    screenName: string;
+
+    @Column()
     hash: string;
     password: string;
 
@@ -19,7 +22,7 @@ export class User {
         this.hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync()); //TODO make more async
     }
 
-    public async validatePassword(candidate: string): Promise<boolean> {
-        return bcrypt.compare(candidate, this.hash)
+    public validatePassword(candidate: string): boolean {
+        return bcrypt.compareSync(candidate, this.hash)
     }
 }
