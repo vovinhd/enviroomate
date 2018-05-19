@@ -6,14 +6,11 @@ let router = Router();
 const config = require("../../config.json");
 
 router.post('/', (req: Request, res: Response, done: Function) =>{
-    console.log("test");
-    passport.authenticate('local', (err, user) =>{
-        console.log("test4");
+    passport.authenticate('local', {session: false},(err, user) =>{
         const id = user.id;
         const token = jwt.sign(id, config.tokenSecret);
         return res.json({id, token});
     })(req,res);
-    console.log("!");
 });
 
 export {router as ApiLandingContoller} ;

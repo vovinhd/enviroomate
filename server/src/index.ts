@@ -22,10 +22,10 @@ import {ApiLandingContoller} from "./controller/ApiLandingController";
 let config = require("../config.json");
 let RedisStore = require("connect-redis")(session);
 let express_handlebars = require("express-handlebars")({defaultLayout: 'layout'});
-let httpsOptions = { //TODO remove for production
-    key: fs.readFileSync(config.key),
-    cert: fs.readFileSync(config.cert)
-}
+// let httpsOptions = { //TODO remove for production
+//     key: fs.readFileSync(config.key),
+//     cert: fs.readFileSync(config.cert)
+// }
 
 createConnection().then(async connection => {
 
@@ -65,7 +65,8 @@ createConnection().then(async connection => {
     // start express server
     //app.listen(config.port);
 
-    https.createServer(httpsOptions, app).listen(config.port || 443);
+    app.listen(process.env.PORT || 3000)
+//    https.createServer(httpsOptions, app).listen(config.port || 443);
 
     console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results");
 
