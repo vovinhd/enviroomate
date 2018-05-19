@@ -3,6 +3,7 @@
     "url": ""
   },
   "secret": "haaaands",
+  "tokenSecret": "haaaands",
   "port": 3000,
   "dev": true,
   "key": "../../server.key",

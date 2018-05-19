@@ -1,11 +1,10 @@
-import {NextFunction, Request, Response} from "express";
+import {Router,Request,Response} from "express";
 
-export class IndexController {
+let router = Router();
+router.get('/', (req: Request, res: Response) =>{
+    return res.render('index', {home_active: "active"})
+});
 
+//TODO: Other static pages like EULA etc...
 
-    index(request: Request, response: Response, next: NextFunction) {
-        return response.render('index', {home_active: "active"})
-    }
-
-
-}
+export {router as IndexController} ;
