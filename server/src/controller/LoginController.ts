@@ -50,19 +50,18 @@ function postRegister(request: Request, response: Response, next: NextFunction) 
     let password = request.body.password;
     let confirmPassword = request.body.confirm_password;
 
-    this.userRepository.findOne({userName: username}).then((user) => {
+    getRepository(User).findOne({userName: username}).then((user) => {
         if (user == null) {
             let newUser = new User();
             newUser.userName = username;
             newUser.screenName = screename;
             newUser.password = password;
-            request.flash('success_msg', 'You are registered and can now login');
+            getRepository(User).insert(newUser);
             return response.render('login', {login_active: "active"});
         } else {
             return response.render('register', {reg_active: "active", username: username});
         }
     })
-    return response.render('register', {reg_active: "active"});
 }
 
 export {router as LoginController}
