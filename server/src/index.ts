@@ -65,7 +65,6 @@ createConnection().then(async connection => {
     // start express server
     app.listen(config.port);
 
-    app.listen(process.env.PORT || 3000)
   //https.createServer(httpsOptions, app).listen(config.port || 443);
 
 
