@@ -63,10 +63,11 @@ createConnection().then(async connection => {
     app.enable('view cache');
 
     // start express server
-    //app.listen(config.port);
+    app.listen(config.port);
 
     app.listen(process.env.PORT || 3000)
-//    https.createServer(httpsOptions, app).listen(config.port || 443);
+  //https.createServer(httpsOptions, app).listen(config.port || 443);
+
 
     console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results");
 
