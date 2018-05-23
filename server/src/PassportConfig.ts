@@ -29,10 +29,10 @@ passport.use( new LocalStrategy ( {
     (username: string, password: string, done: Function) => {
         getRepository(User).findOne({userName: username}).then(user => {
             if(user == null) {
-                return done(undefined, false, {message: "Email not found"});
+                return done(undefined, null, {message: "Email not found"});
             }
             if(user.validatePassword(password)) return done(undefined, user);
-            return done(undefined, false, {message: "Invalid name or password!"});
+            return done(undefined, null, {message: "Invalid password!"});
 
         })
     }
@@ -42,7 +42,7 @@ passport.use( new JwtStrategy ( {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.tokenSecret
     }, (jwtPayload, done: Function) => {
-        getRepository(User).findOne({id: jwtPayload.id}).then(user => {
+        getRepository(User).findOne({id: jwtPayload}).then(user => {
             return done(null,user);
         }).catch(err => {
             return done(err);

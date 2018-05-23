@@ -3,6 +3,7 @@ import {NextFunction, Router, Request, Response} from "express";
 
 import {User} from "../entity/User";
 import * as passport from "passport";
+import {Group} from "../entity/Group";
 
 
 let router = Router();
@@ -15,7 +16,7 @@ router.get('/login', login);
 router.get('/register', register);
 router.post('/login',
     passport.authenticate('local'),
-    function (req, res) {
+    (req, res) => {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
         res.redirect('/');
@@ -30,7 +31,7 @@ function register(request: Request, response: Response, next: NextFunction) {
     return response.render('register', {reg_active: "active"});
 }
 
-function postRegister(request: Request, response: Response, next: NextFunction) {
+async function postRegister(request: Request, response: Response, next: NextFunction) {
 
     //validate
     request.checkBody('username', 'Email is required').notEmpty();
@@ -49,6 +50,7 @@ function postRegister(request: Request, response: Response, next: NextFunction) 
     let screename = request.body.screenname;
     let password = request.body.password;
     let confirmPassword = request.body.confirm_password;
+    let inviteLink = request.body.invite;
 
     getRepository(User).findOne({userName: username}).then((user) => {
         if (user == null) {
@@ -56,6 +58,11 @@ function postRegister(request: Request, response: Response, next: NextFunction) 
             newUser.userName = username;
             newUser.screenName = screename;
             newUser.password = password;
+            if (inviteLink != null) {
+                 getRepository(Group).findOne({inviteId: inviteLink}).then((group) => {
+                    newUser.group = group;
+                })
+            }
             getRepository(User).insert(newUser);
             return response.render('login', {login_active: "active"});
         } else {
