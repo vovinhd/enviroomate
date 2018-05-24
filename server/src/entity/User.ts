@@ -1,6 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToOne} from "typeorm";
 import * as bcrypt from 'bcrypt-nodejs';
 import {Group} from "./Group";
+import {dateFormat} from "dateformat";
 
 @Entity()
 export class User {
@@ -33,6 +34,11 @@ export class User {
     @BeforeInsert()
     public encrypt () {
         this.hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync()); //TODO make more async
+    }
+
+    @BeforeInsert()
+    private initDateCreated () {
+        this.dateCreated = new Date(Date.now());
     }
 
     public validatePassword(candidate: string): boolean {
