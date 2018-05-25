@@ -28,7 +28,7 @@ export class User {
     hash: string;
     password: string;
 
-    @ManyToOne(type => Group, group => group.members)
+    @ManyToOne(type => Group, group => group.members,{ cascade: true })
     group: Group;
 
     @BeforeInsert()
@@ -43,5 +43,27 @@ export class User {
 
     public validatePassword(candidate: string): boolean {
         return bcrypt.compareSync(candidate, this.hash)
+    }
+
+    public transfer(fullProfile : boolean = false) {
+        let o;
+        if (fullProfile) {
+            o =   {
+                id : this.id,
+                userName : this.userName,
+                screenName: this.screenName,
+                dateCreated: this.dateCreated,
+                emailConfirmed : this.emailConfirmed,
+                isBanned : this.isBanned,
+                group: this.group == null ? '' : this.group.id
+            }
+        } else {
+            o =   {
+                id : this.id,
+                screenName: this.screenName
+            }
+        }
+
+        return o;
     }
 }

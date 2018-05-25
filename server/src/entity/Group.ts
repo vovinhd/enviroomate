@@ -11,7 +11,7 @@ export class Group {
     @Column()
     name: string;
 
-    @OneToMany(type => User, user => user.group)
+    @OneToMany(type => User, user => user.group, { cascade: ["insert"] })
     members: User[];
 
     @Column()
@@ -32,4 +32,28 @@ export class Group {
         }
     }
 
+    public transfer(fullProfile : boolean = false) {
+        let o;
+        if (fullProfile) {
+            o =   {
+                id : this.id,
+                name: this.name,
+                members : [],
+                inviteId : this.inviteId
+            }
+            Array.from(this.members).forEach(value => {
+                o.members.push({id: value.id, screenName :value.screenName})
+            })
+        } else {
+            o =   {
+                id : this.id,
+                name: this.name,
+                members : []
+            }
+            Array.from(this.members).forEach(value => {
+                o.members.push({id: value.id, screenName :value.screenName})
+            })
+        }
+        return o;
+    }
 }
