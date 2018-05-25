@@ -91,7 +91,7 @@ describe('ApiController', () => {
         });
     })
 
-    it ("let a user create a new group", (done: Function) => {
+    it ("shouldn't let a user who is in a group create a new one", (done: Function) => {
         let request = HttpMocks.createRequest({
             method: 'POST',
             url: '/new-wg',
@@ -100,7 +100,7 @@ describe('ApiController', () => {
         let response = HttpMocks.createResponse();
         ApiContoller.handle(request,response, () => {
             expect(response._isJSON).to.be.ok();
-            expect(response._getData()).to.contain(user.screenName);
+            expect(response._getData()).to.contain("already in a group");
             done();
         });
     })
