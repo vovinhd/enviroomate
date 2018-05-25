@@ -1,5 +1,2 @@
 language: node_js
-script:
-	- cd server
-	- npm -i
-	- npm test
+script: cd server && npm -i && npm test
