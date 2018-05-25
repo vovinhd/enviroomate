@@ -99,7 +99,12 @@ router.post("/join-wg", async (request: Request, response: Response, done: Funct
     }).catch(response);
 });
 
-router.get("/followed-wgs", (request: Request, response: Response, done: Function) => {
+router.get("/search-wg", (request: Request, response: Response, done: Function) => {
+    return response.json(request.user);
+});
+
+
+router.get("/followed-wgs", (request:Request, response: Response, done: Function) => {
     return response.json(request.user);
 });
 

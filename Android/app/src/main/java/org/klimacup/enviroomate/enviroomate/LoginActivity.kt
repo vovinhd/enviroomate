@@ -113,15 +113,18 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             var queue = Volley.newRequestQueue(this)
-            val url = "http://192.168.178.58:3000/api-login"
+            val url = "http://enviroommate.org:3000/api-login"
             showProgress(true)
-            val loginRequest = JsonObjectRequest(url, JSONObject().put("username", emailStr).put("password", passwordStr),
+            AppDelegate.instance.login(emailStr,passwordStr, Response.Listener<JSONObject> { response ->
+                Log.w(TAG, response.toString(2));
+            })
+            /*val loginRequest = JsonObjectRequest(url, JSONObject().put("username", emailStr).put("password", passwordStr),
                     Response.Listener<JSONObject> { response ->
                         Log.w(TAG, response.toString(2));
                     },
                     Response.ErrorListener { response -> Log.e(TAG, response.toString()) }
             )
-            queue.add(loginRequest);
+            queue.add(loginRequest); */
         }
     }
 
@@ -132,7 +135,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun isPasswordValid(password: String): Boolean {
         //TODO: Replace this with your own logic
-        return password.length > 4
+        return password.length >= 1
     }
 
     /**
