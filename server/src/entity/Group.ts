@@ -11,7 +11,7 @@ export class Group {
     @Column()
     name: string;
 
-    @OneToMany(type => User, user => user.group, { cascade: ["insert"] })
+    @OneToMany(type => User, user => user.group, {eager: true})
     members: User[];
 
     @Column()
@@ -20,16 +20,21 @@ export class Group {
     @BeforeInsert()
     async generateInviteId() {
         if (this.inviteId == null) { // TODO simplify
+            let candidate: string = Math.random().toString(36).substring(7);
+            this.inviteId = candidate
+        }
+
+/*
             let candidate: string = null;
             while (candidate == null) {
                 let temp = Math.random().toString(36).substring(7);
                 let group = await getRepository(Group).find({inviteId: temp});
-                if (group == null) {
+                if (!group) {
                     candidate  = Math.random().toString(36).substring(7);
                 }
             }
             this.inviteId = candidate;
-        }
+*/
     }
 
     public transfer(fullProfile : boolean = false) {

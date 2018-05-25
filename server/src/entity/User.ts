@@ -28,7 +28,7 @@ export class User {
     hash: string;
     password: string;
 
-    @ManyToOne(type => Group, group => group.members,{ cascade: true })
+    @ManyToOne(type => Group, group => group.members)
     group: Group;
 
     @BeforeInsert()
@@ -55,7 +55,7 @@ export class User {
                 dateCreated: this.dateCreated,
                 emailConfirmed : this.emailConfirmed,
                 isBanned : this.isBanned,
-                group: this.group == null ? '' : this.group.id
+                group: !this.group ? '' : this.group.id
             }
         } else {
             o =   {
