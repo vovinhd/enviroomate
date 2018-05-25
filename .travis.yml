@@ -1,5 +1,7 @@
 dist: xenial
 language: node_js
+node_js:
+  - 8.11.2
 env:
   - TEST_DIR=server
 script: cd $TEST_DIR && npm install && npm test
