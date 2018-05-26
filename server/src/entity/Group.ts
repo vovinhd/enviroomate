@@ -17,6 +17,9 @@ export class Group {
     @Column()
     inviteId: string;
 
+    @OneToMany(type => Group, group => group.follows)
+    followees: Group[];
+
     @BeforeInsert()
     async generateInviteId() {
         if (this.inviteId == null) { // TODO simplify
@@ -45,7 +48,7 @@ export class Group {
                 name: this.name,
                 members : [],
                 inviteId : this.inviteId
-            }
+            };
             Array.from(this.members).forEach(value => {
                 o.members.push({id: value.id, screenName :value.screenName})
             })
@@ -54,11 +57,16 @@ export class Group {
                 id : this.id,
                 name: this.name,
                 members : []
-            }
+            };
             Array.from(this.members).forEach(value => {
                 o.members.push({id: value.id, screenName :value.screenName})
             })
         }
         return o;
+    }
+
+    public async follows() : Promise<Group[]>{
+        const loadedRelations = await getRepository(Group).findOne({where: {id: this.id}, relations: ["Group"]});
+        return loadedRelations.followees
     }
 }

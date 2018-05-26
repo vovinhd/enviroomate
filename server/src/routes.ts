@@ -1,4 +1,3 @@
-import {UserController} from "./controller/UserController";
 import {LoginController} from "./controller/LoginController";
 import {IndexController} from "./controller/IndexController";
 import * as express from "express";

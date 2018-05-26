@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {createConnection, getRepository} from "typeorm";
+import {createConnection} from "typeorm";
 import * as express from "express";
 import {Request, Response} from "express";
 import * as bodyParser from "body-parser";
@@ -10,10 +10,6 @@ import * as session from "express-session";
 import * as expressValidator from "express-validator";
 import * as cookieParser from "cookie-parser";
 import * as path from "path";
-import * as fs from "fs";
-import * as https from "https";
-import * as passportLocal from "passport-local";
-import {User} from "./entity/User";
 import {ApiContoller} from "./controller/ApiController";
 import {passportConf} from "./PassportConfig";
 import {ApiLandingContoller} from "./controller/ApiLandingController";
