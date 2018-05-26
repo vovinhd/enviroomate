@@ -3,38 +3,26 @@ package org.klimacup.enviroomate.enviroomate
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
-import android.content.pm.PackageManager
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.app.LoaderManager.LoaderCallbacks
 import android.content.CursorLoader
 import android.content.Loader
 import android.database.Cursor
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
-
-import java.util.ArrayList
-import android.Manifest.permission.READ_CONTACTS
-import android.app.VoiceInteractor
-import android.util.Log
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
+import java.util.*
 
 /**
  * A login screen that offers login via email/password.
@@ -117,7 +105,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(true)
             AppDelegate.instance.login(emailStr,passwordStr, Response.Listener<JSONObject> { response ->
                 Log.w(TAG, response.toString(2));
-            })
+            }, Response.ErrorListener { response -> Log.e(TAG, response.toString()) }
+                    )
             /*val loginRequest = JsonObjectRequest(url, JSONObject().put("username", emailStr).put("password", passwordStr),
                     Response.Listener<JSONObject> { response ->
                         Log.w(TAG, response.toString(2));

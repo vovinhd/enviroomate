@@ -11,11 +11,36 @@ async function loadRelations(user : User) : Promise<User> {
     return u;
 }
 
+/**
+ * @api {get} /api/profile
+ * @apiName Profile
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} user The currently logged in users data
+ * @apiError {String} message The error
+ * @apiDescription Gets the user data of the logged in user. Authorization via bearer token
+ * @apiExample {curl} Example usage of bearer token:
+ GET http://enviroommate.org:3000/api/profile
+ Accept: application/json
+ Cache-Control: no-cache
+ Content-Type: application/json
+ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.Mw.s8smHWCZOUQBxQY-U5Ds2HhsjpNcRY08p_OfNGmimi4
+
+ res: {"id":3,"userName":"1@test.com","screenName":"test","dateCreated":"2018-05-25T20:28:11.000Z","emailConfirmed":false,"isBanned":false,"group":""}
+*/
 router.use(bodyParser.json());
 router.get("/profile", (request: Request, response: Response, done: Function) => {
    done(response.json(((request.user) as User).transfer(true)));
 });
 
+/**
+ * @api {get} /api/wg
+ * @apiName WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} group The current users group
+ * @apiError {String} message The error
+ */
 router.get("/wg", async (request: Request, response: Response, done: Function) => {
     loadRelations(request.user).then( u =>{
         if(u.group) {
@@ -28,6 +53,15 @@ router.get("/wg", async (request: Request, response: Response, done: Function) =
     }).catch(response);
 });
 
+/**
+ * @api {post} /api/new-wg
+ * @apiName New WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} group The current users newly created group
+ * @apiError {String} message The error
+ * @apiDescription Lets users who are currently not in a group create a new one.
+ */
 router.post("/new-wg", (request: Request, response: Response, done: Function) => {
     loadRelations(request.user).then( u =>{
         if(u.group) {
@@ -52,6 +86,16 @@ router.post("/new-wg", (request: Request, response: Response, done: Function) =>
 
 });
 
+/**
+ * @api {post} /api/update-wg
+ * @apiName Update WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} group The current users updated group
+ * @apiError {String} message The error
+ * @apiDescription Lets users change the display name of their group.
+ * @apiParam {String} newName Sets the groups name
+ */
 router.post("/update-wg", async (request: Request, response: Response, done: Function) => {
     loadRelations(request.user).then( u =>{
         if(u.group) {
@@ -74,6 +118,16 @@ router.post("/update-wg", async (request: Request, response: Response, done: Fun
     }).catch(response);
 });
 
+/**
+ * @api {post} /api/join-wg
+ * @apiName Join WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} group The current users new Group
+ * @apiError {String} message The error
+ * @apiDescription Lets users join a group they have the invite link of.
+ * @apiParam {String} inviteId Join group with this invite link
+ */
 router.post("/join-wg", async (request: Request, response: Response, done: Function) => {
     loadRelations(request.user).then( u => {
 
@@ -99,21 +153,91 @@ router.post("/join-wg", async (request: Request, response: Response, done: Funct
     }).catch(response);
 });
 
+/**
+ * @api {post} /api/leave-wg
+ * @apiName Leave WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {String} message
+ * @apiError {String} message The error
+ * @apiDescription Removes a user from a group.
+ */
+router.post("/leave-wg", (request: Request, response: Response, done: Function) => {
+    response.status = 500
+    response.json({message: "Not implemented"});
+    done(response)
+});
+/**
+ * @api {get} /api/search-wg
+ * @apiName Search WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object[]} groups Groups matching the query
+ * @apiParam {String} query The search query
+ * @apiError {String} message The error
+ * @apiDescription Finds other groups to follow them
+ */
 router.get("/search-wg", (request: Request, response: Response, done: Function) => {
-    return response.json(request.user);
+    response.status = 500
+    response.json({message: "Not implemented"});
+    done(response)
 });
 
-
+/**
+ * @api {get} /api/followed-wgs
+ * @apiName Followed WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object[]} groups Groups the users group is following
+ * @apiError {String} message The error
+ */
 router.get("/followed-wgs", (request:Request, response: Response, done: Function) => {
-    return response.json(request.user);
+    response.status = 500
+    response.json({message: "Not implemented"});
+    done(response)
 });
 
+/**
+ * @api {post} /api/follow-wg
+ * @apiName Follow WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} group The group the user is now following
+ * @apiError {String} message The error
+ */
 router.post("/follow-wg", (request: Request, response: Response, done: Function) => {
-    return response.json(request.user);
+    response.status = 500
+    response.json({message: "Not implemented"});
+    done(response)
 });
 
+/**
+ * @api {post} /api/unfollow-wg
+ * @apiName Unfollow WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {String} message The unfollowed groups id
+ * @apiError {String} message The error
+ */
+router.post("/unfollow-wg", (request: Request, response: Response, done: Function) => {
+    response.status = 500
+    response.json({message: "Not implemented"});
+    done(response)
+});
+
+
+/**
+ * @api {get} /api/current-challenge
+ * @apiName Followed WG
+ * @apiGroup ClientAPI
+ * @apiHeader {Authorization} Bearer token  The jwt token
+ * @apiSuccess {Object} challenge gets the current challenge
+ * @apiError {String} message The error
+ */
 router.get("/current-challenge", (request: Request, response: Response, done: Function) => {
-    return response.json(request.user);
+    response.status = 500
+    response.json({message: "Not implemented"});
+    done(response)
 });
 
 export {router as ApiContoller} ;
