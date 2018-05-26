@@ -6,7 +6,7 @@ build/
 tmp/
 temp/
 public/
-views/
+# views/
 doc/
 
 
