@@ -1,0 +1,8 @@
+{
+    "short_name": "enviroommate",
+    "long_name": "enviroommate pwa",
+    "background_color": "#3367D6",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#3367D6"
+}

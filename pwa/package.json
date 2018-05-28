@@ -6,25 +6,39 @@
   "scripts": {
     "build": "webpack",
     "start": "http-server dist",
-    "watch": "concurrently \"npm run build\" \"npm run start\"",
+    "dev": "webpack-watch-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "watch": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
     "concurrently": "^3.5.1",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
+    "install": "^0.11.0",
+    "node-sass": "^4.9.0",
+    "npm": "^6.1.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
     "ts-loader": "^4.3.0",
     "typescript": "^2.8.3",
     "webpack": "^4.9.1",
     "webpack-cli": "^2.1.4",
+    "webpack-watch-server": "^1.2.1",
     "workbox-webpack-plugin": "^3.2.0"
   },
   "dependencies": {
     "@types/lodash": "^4.14.109",
     "lodash": "^4.17.10",
     "materialize-css": "^1.0.0-rc.1",
-    "vue": "^2.5.16"
+    "npm-watch": "^0.3.0",
+    "vue": "^2.5.16",
+    "vue-class-component": "^6.2.0"
   }
 }
