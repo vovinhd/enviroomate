@@ -2,8 +2,11 @@ $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 $alert-color: #a22;
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons);
+html, html * {
+  font-family: Roboto;
+}
 body {
-  font: 100% $font-stack;
   color: $primary-color;
   .hello {
     color: $alert-color;

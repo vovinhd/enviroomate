@@ -3,10 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: {
-        app: './src/index.ts',
+        app: './src/index.js',
     },
     module: {
         rules: [
@@ -44,6 +45,10 @@ module.exports = {
                 use: [
                     'file-loader'
                 ]
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ]
     },
@@ -61,10 +66,16 @@ module.exports = {
             swSrc: 'src/sw.js',
             swDest: 'service-worker.js',
         }),
-        new CopyWebpackPlugin([ {from: './src/manifest.json', to: 'manifest.json'} ],  { debug: 'info' })
+        new CopyWebpackPlugin([ {from: './src/manifest.json', to: 'manifest.json'} ],  { debug: 'info' }),
+        new VueLoaderPlugin()
     ],
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
+    },
+    resolve: {
+        alias: {
+            vue: 'vue/dist/vue.js'
+        }
     }
 };
