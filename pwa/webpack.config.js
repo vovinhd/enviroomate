@@ -78,5 +78,11 @@ module.exports = {
             vue: 'vue/dist/vue.js'
         }
     },
-    mode: 'development'
+    mode: 'development',
+    devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
+        port: 9000,
+        disableHostCheck: true
+    }
 };
