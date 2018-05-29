@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=development",
     "start": "http-server dist",
-    "dev": "webpack-watch-server",
+    "dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "watch": {},
@@ -19,7 +19,9 @@
     "concurrently": "^3.5.1",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
+    "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "install": "^0.11.0",
@@ -33,18 +35,32 @@
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.9.1",
     "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^1.16.5",
+    "webpack-dev-server": "^3.1.4",
+    "webpack-hot-middleware": "^2.22.2",
+    "webpack-merge": "^4.1.2",
     "webpack-watch-server": "^1.2.1",
     "workbox-webpack-plugin": "^3.2.0"
   },
   "dependencies": {
     "@types/lodash": "^4.14.109",
+    "eventsource-polyfill": "^0.9.6",
     "lodash": "^4.17.10",
     "materialize-css": "^1.0.0-rc.1",
     "npm-watch": "^0.3.0",
+    "status": "0.0.13",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
     "vue-icons": "^2.0.0",
+    "vue-router": "^3.0.1",
     "vuetify": "^1.0.18"
-  }
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

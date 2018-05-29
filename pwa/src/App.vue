@@ -8,10 +8,10 @@
         <v-list dense>
             <v-list-tile @click="">
                 <v-list-tile-action>
-                    <v-icon>home</v-icon>
+                    <v-icon>Home</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Home</v-list-tile-title>
+                    <v-list-tile-title>Test</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile @click="">

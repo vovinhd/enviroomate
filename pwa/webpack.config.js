@@ -66,7 +66,7 @@ module.exports = {
             swSrc: 'src/sw.js',
             swDest: 'service-worker.js',
         }),
-        new CopyWebpackPlugin([ {from: './src/manifest.json', to: 'manifest.json'} ],  { debug: 'info' }),
+        new CopyWebpackPlugin([ {from: 'static/manifest.json', to: 'manifest.json'} ],  { debug: 'info' }),
         new VueLoaderPlugin()
     ],
     output: {
@@ -77,5 +77,6 @@ module.exports = {
         alias: {
             vue: 'vue/dist/vue.js'
         }
-    }
+    },
+    mode: 'development'
 };
