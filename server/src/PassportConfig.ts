@@ -40,7 +40,7 @@ passport.use( new LocalStrategy ( {
 
 passport.use( new JwtStrategy ( {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.tokenSecret
+    secretOrKey: process.env.API_SECRET || config.tokenSecret
     }, (jwtPayload, done: Function) => {
         getRepository(User).findOne({id: jwtPayload}).then(user => {
             return done(null,user);

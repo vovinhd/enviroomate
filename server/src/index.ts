@@ -40,7 +40,7 @@ createConnection().then(async connection => {
     app.use(cookieParser());
     //
     app.use(session({
-        secret: config.secret,
+        secret: process.env.SECRET || config.secret,
         resave: false,
         saveUninitialized: true,
         cookie: { secure: !config.dev }
