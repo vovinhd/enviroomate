@@ -29,12 +29,18 @@ createConnection().then(async connection => {
     const app = express();
     // setup express app
 
+    const logger = (request : Request, response : Response, done : Function) => {
+        console.log("Got request to " + request.originalUrl);
+        done()
+    };
+
+    app.use(logger);
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
     //
     app.use(session({
-        secret: config.secret,
+        secret: process.env.SECRET || config.secret,
         resave: false,
         saveUninitialized: true,
         cookie: { secure: !config.dev }
@@ -44,9 +50,8 @@ createConnection().then(async connection => {
     app.use(passport.session());
     app.use(expressValidator());
 
-    app.use('/', FrontEndController);
-    app.use('/api-login', ApiLandingContoller);
-    app.use('/api', passport.authenticate('jwt', {session: false}), ApiContoller);
+    app.use('/api/', ApiLandingContoller);
+    app.use('/api/auth', passport.authenticate('jwt', {session: false}), ApiContoller);
 
     //setup views
     app.set('views', path.join(__dirname, 'views'));
